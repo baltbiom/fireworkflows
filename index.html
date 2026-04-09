@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Versaterm Fire Strategy Assessment</title>
+  <style>
+    :root {
+      --border: #d9d9d9;
+      --header-bg: #f5f5f5;
+      --section-bg: #fafafa;
+      --text: #222;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 24px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: white;
+    }
+
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 28px;
+    }
+
+    p.intro {
+      margin: 0 0 20px 0;
+      font-size: 14px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      min-width: 1400px;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--border);
+      padding: 8px;
+      font-size: 14px;
+    }
+
+    thead th {
+      background: var(--header-bg);
+    }
+
+    th.item-col,
+    td.item-col {
+      width: 46%;
+      text-align: left;
+      vertical-align: middle;
+      font-weight: normal;
+    }
+
+    th.checkbox-col,
+    td.checkbox-col {
+      width: 5.4%;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    th.vertical-header {
+      height: 220px;
+      padding: 0;
+      position: relative;
+      vertical-align: bottom;
+    }
+
+    th.vertical-header > span {
+      position: absolute;
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-50%) rotate(270deg);
+      transform-origin: center center;
+      white-space: nowrap;
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    th.editable-header {
+      overflow: visible;
+    }
+
+    .rotated-input-wrap {
+      position: absolute;
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-50%) rotate(270deg);
+      transform-origin: center center;
+      width: 170px;
+    }
+
+    .rotated-input-wrap input[type="text"] {
+      width: 100%;
+      border: 1px solid var(--border);
+      padding: 4px 6px;
+      font: inherit;
+      text-align: center;
+      background: white;
+    }
+
+    .section-row td {
+      background: var(--section-bg);
+      font-weight: bold;
+      font-size: 16px;
+      padding: 10px 8px;
+    }
+
+    .subsection-row td {
+      background: #fcfcfc;
+      font-weight: bold;
+      font-style: italic;
+      padding: 9px 8px;
+    }
+
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      vertical-align: middle;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin: 0 0 18px 0;
+    }
+
+    .actions button {
+      border: 1px solid var(--border);
+      background: white;
+      padding: 8px 12px;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .actions button:hover {
+      background: #f7f7f7;
+    }
+
+    @media print {
+      .actions {
+        display: none;
+      }
+
+      body {
+        margin: 12px;
+      }
+
+      .table-wrap {
+        overflow: visible;
+        border: none;
+      }
+
+      table {
+        min-width: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Versaterm Fire Strategy Assessment</h1>
+  <p class="intro">Check the applicable boxes for each workflow item.</p>
+  <div class="actions">
+    <button type="button" onclick="exportToPDF()">Export to PDF</button>
+    <button type="button" onclick="emailResults()">Email Results</button>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="item-col"></th>
+          <th class="checkbox-col vertical-header"><span>Important to my agency</span></th>
+          <th class="checkbox-col vertical-header editable-header"><div class="rotated-input-wrap"><input type="text" value="<software used>" aria-label="Software used" /></div></th>
+          <th class="checkbox-col vertical-header editable-header"><div class="rotated-input-wrap"><input type="text" value="<software used>" aria-label="Software used" /></div></th>
+          <th class="checkbox-col vertical-header editable-header"><div class="rotated-input-wrap"><input type="text" value="<software used>" aria-label="Software used" /></div></th>
+          <th class="checkbox-col vertical-header editable-header"><div class="rotated-input-wrap"><input type="text" value="<software used>" aria-label="Software used" /></div></th>
+          <th class="checkbox-col vertical-header editable-header"><div class="rotated-input-wrap"><input type="text" value="<software used>" aria-label="Software used" /></div></th>
+          <th class="checkbox-col vertical-header editable-header"><div class="rotated-input-wrap"><input type="text" value="<software used>" aria-label="Software used" /></div></th>
+          <th class="checkbox-col vertical-header editable-header"><div class="rotated-input-wrap"><input type="text" value="<software used>" aria-label="Software used" /></div></th>
+          <th class="checkbox-col vertical-header editable-header"><div class="rotated-input-wrap"><input type="text" value="<software used>" aria-label="Software used" /></div></th>
+          <th class="checkbox-col vertical-header editable-header"><div class="rotated-input-wrap"><input type="text" value="<software used>" aria-label="Software used" /></div></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="section-row"><td colspan="11">1. Pre-Incident Readiness</td></tr>
+        <tr><td class="item-col">Preplans (structures, hazards, hydrants)</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Inspections &amp; code enforcement</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Community risk reduction (CRR)</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Training &amp; certifications</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Staffing &amp; scheduling</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Apparatus &amp; equipment readiness</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">System status management (move-up/cover)</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Community paramedicine programs</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+
+        <tr class="section-row"><td colspan="11">2. Dispatch &amp; System Coordination</td></tr>
+        <tr><td class="item-col">911 intake</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Call triage &amp; prioritization</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Unit recommendation (closest vs correct)</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Dynamic deployment / coverage optimization</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Dispatch routing (staging, perimeters)</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Interagency coordination / mutual aid</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+
+        <tr class="section-row"><td colspan="11">3. En Route &amp; On-Scene Operations</td></tr>
+        <tr class="subsection-row"><td colspan="11">Core Operational Layer</td></tr>
+        <tr><td class="item-col">Dynamic size-up (en route → on arrival)</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Preplans, hydrants, hazmat, layouts</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Staffing commitment</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Unit status &amp; ETA</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Navigation &amp; routing</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Real-time data ingestion</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">IoT / wearables</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Sensors</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Drones / video</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Scene safety awareness</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Unit coordination</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr class="subsection-row"><td colspan="11">EMS Overlay (when applicable)</td></tr>
+        <tr><td class="item-col">Patient assessment &amp; vitals</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Treatment protocol selection</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Medication planning</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Hospital status awareness &amp; routing for optimal turn-around decisions</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">ePCR initiation (not completion)</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Transport vs treat-in-place consideration</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+
+        <tr class="section-row"><td colspan="11">4. Incident Command &amp; Operations</td></tr>
+        <tr><td class="item-col">ICS structure</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Personnel accountability</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">SCBA &amp; safety monitoring</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Tactical assignments &amp; span of control</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Multi-agency coordination</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Resource management</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Formal size-up declaration (arrival-based)</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Decision logging (strategy/tactics)</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Patient tracking (command-level visibility)</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Multi-patient / MCI management</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Triage (START/SALT)</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Prioritization</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Transport coordination</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Hospital distribution</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+
+        <tr class="section-row"><td colspan="11">5. Unified Incident Record (RMS Evolution)</td></tr>
+        <tr><td class="item-col">Incident timeline (auto-generated)</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Fire + EMS integrated reporting</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Personnel &amp; apparatus activity</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">ePCR integration (not replacement)</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Compliance (NERIS)</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">QA/QI workflows</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+
+        <tr class="section-row"><td colspan="11">6. Analytics, Planning &amp; Continuous Improvement</td></tr>
+        <tr><td class="item-col">Response time analysis</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Deployment modeling</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Staffing models</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Budget &amp; justification</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Accreditation (ISO, CFAI)</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Frequent caller analysis</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+        <tr><td class="item-col">Personnel wellness, health &amp; exposure tracking</td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td><td class="checkbox-col"><input type="checkbox" /></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    function getHeaderText(index) {
+      const headerCells = document.querySelectorAll('thead th.checkbox-col');
+      const headerCell = headerCells[index];
+      if (!headerCell) return '';
+
+      const input = headerCell.querySelector('input[type="text"]');
+      if (input) return input.value.trim();
+
+      const span = headerCell.querySelector('span');
+      return span ? span.textContent.trim() : '';
+    }
+
+    function collectResults() {
+      const lines = [];
+      const rows = document.querySelectorAll('tbody tr');
+      let currentSection = '';
+      let currentSubsection = '';
+
+      rows.forEach((row) => {
+        if (row.classList.contains('section-row')) {
+          currentSection = row.textContent.trim();
+          currentSubsection = '';
+          lines.push('
+' + currentSection);
+          return;
+        }
+
+        if (row.classList.contains('subsection-row')) {
+          currentSubsection = row.textContent.trim();
+          lines.push('  ' + currentSubsection);
+          return;
+        }
+
+        const itemCell = row.querySelector('td.item-col');
+        if (!itemCell) return;
+
+        const itemName = itemCell.textContent.trim();
+        const checkedColumns = [];
+        const checkboxes = row.querySelectorAll('td.checkbox-col input[type="checkbox"]');
+
+        checkboxes.forEach((checkbox, checkboxIndex) => {
+          if (checkbox.checked) {
+            checkedColumns.push(getHeaderText(checkboxIndex));
+          }
+        });
+
+        if (checkedColumns.length > 0) {
+          lines.push('  - ' + itemName + ': ' + checkedColumns.join(', '));
+        }
+      });
+
+      return lines.join('
+').trim();
+    }
+
+    function exportToPDF() {
+      window.print();
+    }
+
+    function emailResults() {
+      const body = collectResults();
+      const subject = 'Versaterm Fire Strategy Assessment Results';
+      const mailto = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body || 'No boxes were checked.');
+      window.location.href = mailto;
+    }
+  </script>
+</body>
+</html>
