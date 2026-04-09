@@ -177,6 +177,7 @@
     <button type="button" onclick="exportToPDF()">Export to PDF</button>
     <button type="button" onclick="emailResults()">Email Results</button>
   </div>
+  <div id="pdf-root">
 
   <div class="table-wrap">
     <table>
@@ -270,6 +271,8 @@
       </tbody>
     </table>
   </div>
+    </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
     function getHeaderText(index) {
       const headerCells = document.querySelectorAll('thead th.checkbox-col');
@@ -326,16 +329,59 @@
 ').trim();
     }
 
-    function exportToPDF() {
-      window.print();
+    async function exportToPDF() {
+      const element = document.getElementById('pdf-root');
+      const buttons = document.querySelector('.actions');
+      const originalScrollX = window.scrollX;
+      const originalScrollY = window.scrollY;
+
+      try {
+        if (buttons) buttons.style.display = 'none';
+        window.scrollTo(0, 0);
+
+        const opt = {
+          margin: [0.35, 0.35, 0.35, 0.35],
+          filename: 'versaterm-fire-strategy-assessment.pdf',
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: {
+            scale: 2,
+            useCORS: true,
+            scrollX: 0,
+            scrollY: 0
+          },
+          jsPDF: {
+            unit: 'in',
+            format: 'letter',
+            orientation: 'landscape'
+          },
+          pagebreak: {
+            mode: ['css', 'legacy']
+          }
+        };
+
+        await html2pdf().set(opt).from(element).save();
+      } catch (error) {
+        alert('PDF export failed in this browser or environment.');
+        console.error(error);
+      } finally {
+        if (buttons) buttons.style.display = '';
+        window.scrollTo(originalScrollX, originalScrollY);
+      }
     }
 
-    function emailResults() {
-      const body = collectResults();
-      const subject = 'Versaterm Fire Strategy Assessment Results';
-      const mailto = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body || 'No boxes were checked.');
-      window.location.href = mailto;
-    }
+	function emailResults() {
+	  const body = collectResults();
+	  const subject = 'Versaterm Fire Strategy Assessment Results';
+	  const mailto = 'mailto:?subject=' + encodeURIComponent(subject) +
+					 '&body=' + encodeURIComponent(body || 'No boxes were checked.');
+
+	  const link = document.createElement('a');
+	  link.href = mailto;
+	  link.style.display = 'none';
+	  document.body.appendChild(link);
+	  link.click();
+	  document.body.removeChild(link);
+	}
   </script>
 </body>
 </html>
