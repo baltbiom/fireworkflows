@@ -3,2411 +3,2188 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Versaterm Fire Methodology Assessment v3</title>
+  <title>Versaterm Fire Methodology Assessment</title>
   <style>
-    :root 
-	{
-      --border: #d9d9d9;
-      --header-bg: #f5f5f5;
-      --section-bg: #fafafa;
-      --text: #222;
+    :root {
+      --border:      #dde1e7;
+      --header-bg:   #1a2b4a;
+      --header-text: #ffffff;
+      --section-bg:  #1a2b4a;
+      --section-text:#ffffff;
+      --subsect-bg:  #eef1f6;
+      --subsect-text:#1a2b4a;
+      --row-alt:     #f7f9fc;
+      --accent:      #c8392b;
+      --text:        #222;
+      --radius:      6px;
     }
+
     * { box-sizing: border-box; }
-    body { margin: 24px; font-family: Arial, Helvetica, sans-serif; color: var(--text); background: white; }
-    h1 { margin: 0 0 8px 0; font-size: 28px; }
-    p.intro { margin: 0 0 20px 0; font-size: 14px; }
-    .table-wrap { overflow-x: auto; border: 1px solid var(--border); }
-    table { width: 100%; min-width: 1200px; border-collapse: collapse; table-layout: fixed; }
-    th, td { border: 1px solid var(--border); padding: 8px; font-size: 14px; }
-    thead th { background: var(--header-bg); }
-    th.item-col, td.item-col { width: 44%; text-align: left; vertical-align: middle; font-weight: normal; }
-    th.pain-col, td.pain-col { width: 14%; text-align: center; vertical-align: middle; }
-    th.tools-col, td.tools-col { width: 10%; text-align: center; vertical-align: middle; }
-    th.workaround-col, td.workaround-col { width: 5%; text-align: center; vertical-align: middle; }
-    th.notes-col, td.notes-col { width: 22%; text-align: center; vertical-align: middle; }
-    th.vertical-header { height: 180px; padding: 0; position: relative; vertical-align: bottom; }
-    th.vertical-header > span { position: absolute; left: 50%; bottom: 85px; transform: translateX(-50%) rotate(270deg); transform-origin: center center; white-space: nowrap; font-weight: bold; line-height: 1; }
-    .section-row td { background: var(--section-bg); font-weight: bold; font-size: 16px; padding: 10px 8px; }
-    .subsection-row td { background: #fcfcfc; font-weight: bold; font-style: italic; padding: 9px 8px; }
-    .pain-group { display: flex; justify-content: center; align-items: flex-start; gap: 6px; flex-wrap: nowrap; }
-    .pain-group label { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; line-height: 1; }
-    input[type="checkbox"], input[type="radio"] { width: 16px; height: 16px; margin: 0; vertical-align: middle; }
-    select.tools-select { width: 95%; max-width: 180px; padding: 4px; font: inherit; border: 1px solid var(--border); background: white; }
-    textarea.notes-input { width: 100%; min-height: 100px; padding: 6px; font: inherit; border: 1px solid var(--border); background: white; resize: vertical; }
-    .actions { display: flex; gap: 12px; margin: 0 0 18px 0; }
-    .actions button { border: 1px solid var(--border); background: white; padding: 8px 12px; font: inherit; cursor: pointer; }
-    .actions button:hover { background: #f7f7f7; }
-    #results-output { width: 100%; min-height: 250px; margin-top: 18px; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: #eef1f6;
+    }
+
+    /* ── Page Header ── */
+    .page-header {
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 28px 40px 22px;
+    }
+    .page-header h1 {
+      margin: 0 0 6px;
+      font-size: 26px;
+      letter-spacing: .3px;
+    }
+    .page-header .subtitle {
+      margin: 0;
+      font-size: 13px;
+      opacity: .8;
+    }
+
+    /* ── Page Body ── */
+    .page-body {
+      max-width: 1400px;
+      margin: 28px auto;
+      padding: 0 24px 60px;
+    }
+
+    /* ── Instruction card ── */
+    .instruction-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 24px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .instruction-card p { margin: 0 0 6px; }
+    .instruction-card p:last-child { margin: 0; }
+    .instruction-card ol {
+      margin: 8px 0 0 20px;
+      padding: 0;
+    }
+
+    /* ── Respondent fields ── */
+    .respondent-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .respondent-card .field {
+      flex: 1;
+      min-width: 220px;
+    }
+    .respondent-card label {
+      display: block;
+      font-weight: bold;
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: var(--header-bg);
+    }
+    .respondent-card input[type="text"] {
+      width: 100%;
+      padding: 8px 10px;
+      font: inherit;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .respondent-card input[type="text"]:focus {
+      outline: 2px solid var(--header-bg);
+      outline-offset: 1px;
+    }
+
+    /* ── Table wrapper ── */
+    .table-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .table-wrap { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      min-width: 1100px;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 9px 10px;
+      font-size: 13.5px;
+    }
+
+    /* column widths */
+    th.item-col,  td.item-col  { width: 44%; text-align: left;   vertical-align: middle; }
+    th.pain-col,  td.pain-col  { width: 13%; text-align: center; vertical-align: middle; }
+    th.tools-col, td.tools-col { width: 14%; text-align: center; vertical-align: middle; }
+    th.wa-col,    td.wa-col    { width:  6%; text-align: center; vertical-align: middle; }
+    th.notes-col, td.notes-col { width: 23%; text-align: left;   vertical-align: top;    }
+
+    /* rotated column headers */
+    thead tr { background: var(--header-bg); color: var(--header-text); }
+    thead th { border-color: #2e4170; }
+    th.item-col { font-size: 14px; padding: 14px 10px; }
+
+    th.vertical-header {
+      height: 160px;
+      padding: 0;
+      position: relative;
+      vertical-align: bottom;
+    }
+    th.vertical-header > span {
+      position: absolute;
+      left: 50%;
+      bottom: 70px;
+      transform: translateX(-50%) rotate(270deg);
+      transform-origin: center center;
+      white-space: nowrap;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    /* section rows */
+    .section-row td {
+      background: var(--section-bg);
+      color: var(--section-text);
+      font-weight: bold;
+      font-size: 15px;
+      padding: 10px 12px;
+      letter-spacing: .2px;
+    }
+    .subsection-row td {
+      background: var(--subsect-bg);
+      color: var(--subsect-text);
+      font-weight: bold;
+      font-style: italic;
+      font-size: 13px;
+      padding: 8px 12px;
+    }
+
+    /* alternating data rows */
+    tbody tr:not(.section-row):not(.subsection-row):nth-child(even) td {
+      background: var(--row-alt);
+    }
+    tbody tr:not(.section-row):not(.subsection-row):hover td {
+      background: #e8edf6;
+    }
+
+    /* pain radio group */
+    .pain-group {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 8px;
+    }
+    .pain-group label {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 11.5px;
+      font-weight: bold;
+      color: #555;
+      cursor: pointer;
+    }
+    input[type="radio"]    { width: 15px; height: 15px; margin: 0; cursor: pointer; accent-color: var(--accent); }
+    input[type="checkbox"] { width: 16px; height: 16px; margin: 0; cursor: pointer; accent-color: var(--accent); }
+
+    /* tool selects */
+    select.tools-select {
+      width: 96%;
+      padding: 5px 4px;
+      font: inherit;
+      font-size: 12.5px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+    }
+
+    /* notes textarea */
+    textarea.notes-input {
+      width: 100%;
+      min-height: 70px;
+      padding: 6px 8px;
+      font: inherit;
+      font-size: 12.5px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      resize: vertical;
+    }
+    textarea.notes-input:focus,
+    select.tools-select:focus {
+      outline: 2px solid var(--header-bg);
+      outline-offset: 1px;
+    }
+
+    /* ── Additional comments card ── */
+    .comments-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .comments-card h2 {
+      margin: 0 0 12px;
+      font-size: 15px;
+      color: var(--header-bg);
+    }
+    .comments-card textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 10px 12px;
+      font: inherit;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      resize: vertical;
+    }
+    .comments-card textarea:focus {
+      outline: 2px solid var(--header-bg);
+      outline-offset: 1px;
+    }
+
+    /* ── Submit / action bar (sticky) ── */
+    .action-bar {
+      position: sticky;
+      bottom: 0;
+      background: #fff;
+      border-top: 2px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      z-index: 100;
+      box-shadow: 0 -3px 12px rgba(0,0,0,.08);
+    }
+    .action-bar .prompt-text {
+      flex: 1;
+      font-size: 13.5px;
+      color: #555;
+    }
+    .action-bar .prompt-text strong { color: var(--text); }
+
+    .btn {
+      padding: 10px 22px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background .15s, border-color .15s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: 2px solid var(--accent);
+    }
+    .btn-primary:hover { background: #a82e22; border-color: #a82e22; }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--header-bg);
+      border: 2px solid var(--header-bg);
+    }
+    .btn-secondary:hover { background: var(--subsect-bg); }
+
+    /* ── Results output ── */
+    #results-output {
+      width: 100%;
+      min-height: 220px;
+      margin-top: 6px;
+      font-family: monospace;
+      font-size: 13px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      resize: vertical;
+    }
+    .results-card {
+      display: none;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .results-card h2 {
+      margin: 0 0 10px;
+      font-size: 15px;
+      color: var(--header-bg);
+    }
+
     @media print {
-      .actions { display: none; }
-      body { margin: 12px; }
-      .table-wrap { overflow: visible; border: none; }
+      .action-bar, .results-card { display: none; }
+      body { background: #fff; }
+      .page-body { padding: 0; }
+      .table-wrap { overflow: visible; }
       table { min-width: 0; }
     }
   </style>
 </head>
 <body>
-  <h1>Versaterm Fire Methodology Assessment</h1>
-  <p class="intro">The following list itemizes critical fire and ems workflows. Please identify:</p>
-  <p style="margin-left: 15px; line-height: 10%;" class="intro">a) pain level from 1 through 5</p>
-  <p style="margin-left: 15px; line-height: 10%;" class="intro">b) what software application is used to manage it</p>
-  <p style="margin-left: 15px; line-height: 10%;" class="intro">c) whether workarounds are required</p>
-  <p style="margin-left: 15px; line-height: 10%;" class="intro">d) notes</p>
-  <p class="intro">Complete the applicable fields and email the results to alex.menkes@versaterm.com</p>
-	<div style="margin-bottom: 20px;">
-	  <div style="margin-bottom: 12px;">
-		<label for="responderName" style="display: block; font-weight: bold; margin-bottom: 4px;">
-		  Name and title of responder
-		</label>
-		<input 
-		  type="text" 
-		  id="responderName" 
-		  name="responderName" 
-		  style="width: 100%; max-width: 500px; padding: 6px; font: inherit; border: 1px solid #d9d9d9;"
-		/>
-	  </div>
 
-	  <div>
-		<label for="departmentName" style="display: block; font-weight: bold; margin-bottom: 4px;">
-		  Department Name
-		</label>
-		<input 
-		  type="text" 
-		  id="departmentName" 
-		  name="departmentName" 
-		  style="width: 100%; max-width: 500px; padding: 6px; font: inherit; border: 1px solid #d9d9d9;"
-		/>
-	  </div>
-	</div>
-  <div class="actions">
-    <button type="button" onclick="emailResults()">Email Results</button>
-    <button type="button" onclick="showResultsAsText()">Show Results as Text</button>
+  <!-- ══ Page Header ══════════════════════════════════════════════ -->
+  <div class="page-header">
+    <h1>Versaterm Fire Methodology Assessment</h1>
+    <p class="subtitle">Confidential workflow evaluation — Versaterm Public Safety US, Inc.</p>
   </div>
-  <div id="pdf-root">
-    <div class="table-wrap">
-      <table>
-		<!-- ===== Table Headers ===== -->
-        <thead>
-			<tr>
-				<th class="item-col"/>
-				<th class="pain-col vertical-header">
-					<span>Pain level</span>
-				</th>
-				<th class="tools-col vertical-header">
-					<span>Current tools used</span>
-				</th>
-				<th class="workaround-col vertical-header">
-					<span>Workarounds required?</span>
-				</th>
-				<th class="notes-col vertical-header">
-					<span>Notes</span>
-				</th>
-			</tr>
-        </thead>
-		<!-- ===== 1. Pre-Incident Readiness ===== -->
-        <tbody id="pre-incident-readiness">
-			<tr class="section-row">
-				<td colspan="5">1. Pre-Incident Readiness</td>
-			</tr>
-			<tr>
-				<td class="item-col">
-					Preplans (structures, hazards, hydrants)
-				</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>
-							1
-							<input type="radio" name="pain_preplans__structures__hazards__hydrants" value="1" />
-						</label>
-						<label>
-							2
-							<input type="radio" name="pain_preplans__structures__hazards__hydrants" value="2" />
-						</label>
-						<label>
-							3
-							<input type="radio" name="pain_preplans__structures__hazards__hydrants" value="3" />
-						</label>
-						<label>
-							4
-							<input type="radio" name="pain_preplans__structures__hazards__hydrants" value="4" />
-						</label>
-						<label>
-							5
-							<input type="radio" name="pain_preplans__structures__hazards__hydrants" value="5" />
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""></option>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>ImageTrend</option>
-						<option>ESO</option>
-						<option>FireHouse Software</option>
-						<option>Emergency Reporting</option>
-						<option>ArcGIS / Esri</option>
-						<option>TraxWorx</option>
-						<option>Cityworks</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox" />
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-					</textarea>
-				</td>
-			 </tr>
-			<tr>
-				<td class="item-col">Inspections & code enforcement</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_inspections___code_enforcement" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_inspections___code_enforcement" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_inspections___code_enforcement" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_inspections___code_enforcement" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_inspections___code_enforcement" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>ImageTrend</option>
-						<option>ESO</option>
-						<option>FireHouse Software</option>
-						<option>Emergency Reporting</option>
-						<option>Tyler Technologies</option>
-						<option>Cityworks</option>
-						<option>ArcGIS / Esri</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Community risk reduction (CRR)</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_community_risk_reduction__crr" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_community_risk_reduction__crr" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_community_risk_reduction__crr" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_community_risk_reduction__crr" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_community_risk_reduction__crr" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>ImageTrend</option>
-						<option>ESO</option>
-						<option>FireHouse Software</option>
-						<option>Emergency Reporting</option>
-						<option>ArcGIS / Esri</option>
-						<option>Zoll RescueNet</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
 
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Training & certifications</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_training___certifications" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_training___certifications" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_training___certifications" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_training___certifications" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_training___certifications" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>ImageTrend</option>
-						<option>ESO</option>
-						<option>Vector Solutions (TargetSolutions)</option>
-						<option>FireHouse Software</option>
-						<option>Emergency Reporting</option>
-						<option>Acadis</option>
-						<option>CrewSense</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
+  <div class="page-body">
 
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Staffing & scheduling</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_staffing___scheduling" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_staffing___scheduling" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_staffing___scheduling" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_staffing___scheduling" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_staffing___scheduling" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>ImageTrend</option>
-						<option>ESO</option>
-						<option>Aladtec</option>
-						<option>InTime</option>
-						<option>Vector Solutions (TargetSolutions)</option>
-						<option>eSchedule</option>
-						<option>Telestaff (UKG)</option>
-						<option>CrewSense</option>
-						<option>FireHouse Software</option>
-						<option>Emergency Reporting</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Apparatus & equipment readiness</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_apparatus___equipment_readiness" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_apparatus___equipment_readiness" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_apparatus___equipment_readiness" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_apparatus___equipment_readiness" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_apparatus___equipment_readiness" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>ImageTrend</option>
-						<option>ESO</option>
-						<option>FireHouse Software</option>
-						<option>Emergency Reporting</option>
-						<option>Operative IQ</option>
-						<option>Asset Panda</option>
-						<option>Fleetio</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">System status management (move-up/cover)</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_system_status_management__move_up_cover" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_system_status_management__move_up_cover" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_system_status_management__move_up_cover" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_system_status_management__move_up_cover" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_system_status_management__move_up_cover" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Motorola Solutions (PremierOne / CommandCentral)</option>
-						<option>CentralSquare</option>
-						<option>Hexagon</option>
-						<option>Tyler Technologies</option>
-						<option>Zoll Dispatch</option>
-						<option>Spillman (Motorola)</option>
-						<option>RapidDeploy</option>
-						<option>StreetWise CADlink</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Community paramedicine programs</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_community_paramedicine_programs" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_community_paramedicine_programs" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_community_paramedicine_programs" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_community_paramedicine_programs" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_community_paramedicine_programs" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>ImageTrend</option>
-						<option>ESO</option>
-						<option>Zoll RescueNet</option>
-						<option>Pulsara</option>
-						<option>First Due</option>
-						<option>HealthEMS</option>
-						<option>Traumasoft</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-        </tbody>
-        <!-- ===== 2. Dispatch & System Coordination ===== -->
-		<tbody id="dispatch-system-coordination">
-			<tr class="section-row">
-				<td colspan="5">2. Dispatch & System Coordination</td>
-			</tr>
-			<tr>
-				<td class="item-col">911 intake</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_911_intake" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_911_intake" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_911_intake" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_911_intake" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_911_intake" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Motorola Solutions (PremierOne / CommandCentral)</option>
-						<option>CentralSquare</option>
-						<option>Hexagon</option>
-						<option>Tyler Technologies</option>
-						<option>RapidDeploy</option>
-						<option>Zoll Dispatch</option>
-						<option>Spillman (Motorola)</option>
-						<option>Priority Dispatch</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Call triage & prioritization</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_call_triage___prioritization" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_call_triage___prioritization" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_call_triage___prioritization" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_call_triage___prioritization" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_call_triage___prioritization" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Priority Dispatch</option>
-						<option>Motorola Solutions (PremierOne / CommandCentral)</option>
-						<option>CentralSquare</option>
-						<option>Hexagon</option>
-						<option>Tyler Technologies</option>
-						<option>RapidDeploy</option>
-						<option>Zoll Dispatch</option>
-						<option>ProQA</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Unit recommendation (closest vs correct)</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_unit_recommendation__closest_vs_correct" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_unit_recommendation__closest_vs_correct" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_unit_recommendation__closest_vs_correct" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_unit_recommendation__closest_vs_correct" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_unit_recommendation__closest_vs_correct" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Motorola Solutions (PremierOne / CommandCentral)</option>
-						<option>CentralSquare</option>
-						<option>Hexagon</option>
-						<option>Tyler Technologies</option>
-						<option>Spillman (Motorola)</option>
-						<option>RapidDeploy</option>
-						<option>Zoll Dispatch</option>
-						<option>ArcGIS / Esri</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Dynamic deployment / coverage optimization</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_dynamic_deployment___coverage_optimization" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_dynamic_deployment___coverage_optimization" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_dynamic_deployment___coverage_optimization" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_dynamic_deployment___coverage_optimization" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_dynamic_deployment___coverage_optimization" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Motorola Solutions (PremierOne / CommandCentral)</option>
-						<option>CentralSquare</option>
-						<option>Hexagon</option>
-						<option>Tyler Technologies</option>
-						<option>RapidDeploy</option>
-						<option>ArcGIS / Esri</option>
-						<option>StreetWise CADlink</option>
-						<option>Deccan LiveMUM</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Dispatch routing (staging, perimeters)</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_dispatch_routing__staging__perimeters" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_dispatch_routing__staging__perimeters" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_dispatch_routing__staging__perimeters" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_dispatch_routing__staging__perimeters" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_dispatch_routing__staging__perimeters" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Motorola Solutions (PremierOne / CommandCentral)</option>
-						<option>CentralSquare</option>
-						<option>Hexagon</option>
-						<option>Tyler Technologies</option>
-						<option>RapidDeploy</option>
-						<option>ArcGIS / Esri</option>
-						<option>StreetWise CADlink</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Interagency coordination / mutual aid</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_interagency_coordination___mutual_aid" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_interagency_coordination___mutual_aid" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_interagency_coordination___mutual_aid" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_interagency_coordination___mutual_aid" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_interagency_coordination___mutual_aid" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Motorola Solutions (PremierOne / CommandCentral)</option>
-						<option>CentralSquare</option>
-						<option>Hexagon</option>
-						<option>Tyler Technologies</option>
-						<option>Veoci</option>
-						<option>WebEOC</option>
-						<option>ArcGIS / Esri</option>
-						<option>First Due</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-        </tbody>
-        <!-- ===== 3. En Route & On-Scene Operations ===== -->
-		<tbody id="En Route & On-Scene Operations">
-			<tr class="section-row">
-				<td colspan="5">3. En Route & On-Scene Operations</td>
-			</tr>
-			<tr class="subsection-row">
-				<td colspan="5">Core Operational Layer</td>
-			</tr>
-			<tr>
-				<td class="item-col">Dynamic size-up (en route → on arrival)</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_dynamic_size_up__en_route___on_arrival" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_dynamic_size_up__en_route___on_arrival" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_dynamic_size_up__en_route___on_arrival" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_dynamic_size_up__en_route___on_arrival" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_dynamic_size_up__en_route___on_arrival" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>Tablet Command</option>
-						<option>Active911</option>
-						<option>Motorola Solutions (CommandCentral)</option>
-						<option>CentralSquare</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Preplans, hydrants, hazmat, layouts</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_preplans__hydrants__hazmat__layouts" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_preplans__hydrants__hazmat__layouts" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_preplans__hydrants__hazmat__layouts" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_preplans__hydrants__hazmat__layouts" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_preplans__hydrants__hazmat__layouts" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>ImageTrend</option>
-						<option>ESO</option>
-						<option>FireHouse Software</option>
-						<option>ArcGIS / Esri</option>
-						<option>TraxWorx</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Staffing commitment</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_staffing_commitment" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_staffing_commitment" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_staffing_commitment" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_staffing_commitment" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_staffing_commitment" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>Aladtec</option>
-						<option>InTime</option>
-						<option>Vector Solutions (TargetSolutions)</option>
-						<option>eSchedule</option>
-						<option>Telestaff (UKG)</option>
-						<option>CrewSense</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Unit status & ETA</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_unit_status___eta" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_unit_status___eta" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_unit_status___eta" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_unit_status___eta" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_unit_status___eta" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Motorola Solutions (PremierOne / CommandCentral)</option>
-						<option>CentralSquare</option>
-						<option>Hexagon</option>
-						<option>Tyler Technologies</option>
-						<option>Zoll Dispatch</option>
-						<option>Spillman (Motorola)</option>
-						<option>Active911</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Navigation & routing</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_navigation___routing" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_navigation___routing" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_navigation___routing" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_navigation___routing" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_navigation___routing" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Motorola Solutions (PremierOne / CommandCentral)</option>
-						<option>CentralSquare</option>
-						<option>Hexagon</option>
-						<option>Tyler Technologies</option>
-						<option>Google Maps</option>
-						<option>Waze</option>
-						<option>ArcGIS / Esri</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Real-time data ingestion</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_real_time_data_ingestion" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_real_time_data_ingestion" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_real_time_data_ingestion" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_real_time_data_ingestion" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_real_time_data_ingestion" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>Motorola Solutions (CommandCentral)</option>
-						<option>CentralSquare</option>
-						<option>Hexagon</option>
-						<option>Pulsara</option>
-						<option>ImageTrend</option>
-						<option>ESO</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">IoT / wearables</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_iot___wearables" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_iot___wearables" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_iot___wearables" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_iot___wearables" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_iot___wearables" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Motorola Solutions</option>
-						<option>First Due</option>
-						<option>Pulsara</option>
-						<option>Samsung Knox / wearables</option>
-						<option>Garmin</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Sensors</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_sensors" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_sensors" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_sensors" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_sensors" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_sensors" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>Motorola Solutions</option>
-						<option>Pulsara</option>
-						<option>RapidSOS</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Drones / video</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_drones___video" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_drones___video" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_drones___video" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_drones___video" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_drones___video" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>DroneSense</option>
-						<option>Skydio</option>
-						<option>DJI FlightHub</option>
-						<option>Motorola Solutions</option>
-						<option>First Due</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Scene safety awareness</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_scene_safety_awareness" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_scene_safety_awareness" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_scene_safety_awareness" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_scene_safety_awareness" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_scene_safety_awareness" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>Tablet Command</option>
-						<option>Active911</option>
-						<option>Motorola Solutions</option>
-						<option>Pulsara</option>
-						<option>ArcGIS / Esri</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Unit coordination</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_unit_coordination" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_unit_coordination" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_unit_coordination" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_unit_coordination" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_unit_coordination" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>Tablet Command</option>
-						<option>Active911</option>
-						<option>Motorola Solutions</option>
-						<option>CentralSquare</option>
-						<option>Hexagon</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr class="subsection-row">
-				<td colspan="5">EMS Overlay (when applicable)</td>
-			</tr>
-			<tr>
-				<td class="item-col">Patient assessment & vitals</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_patient_assessment___vitals" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_patient_assessment___vitals" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_patient_assessment___vitals" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_patient_assessment___vitals" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_patient_assessment___vitals" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>Zoll RescueNet</option>
-						<option>Pulsara</option>
-						<option>Traumasoft</option>
-						<option>emsCharts</option>
-						<option>HealthEMS</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Treatment protocol selection</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_treatment_protocol_selection" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_treatment_protocol_selection" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_treatment_protocol_selection" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_treatment_protocol_selection" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_treatment_protocol_selection" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>Zoll RescueNet</option>
-						<option>Pulsara</option>
-						<option>Traumasoft</option>
-						<option>emsCharts</option>
-						<option>MDCalc</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Medication planning</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_medication_planning" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_medication_planning" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_medication_planning" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_medication_planning" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_medication_planning" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>Zoll RescueNet</option>
-						<option>Pulsara</option>
-						<option>Traumasoft</option>
-						<option>emsCharts</option>
-						<option>LogRx</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Hospital status awareness & routing for optimal turn-around decisions</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_hospital_status_awareness___routing_for_optimal_turn_around_decisions" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_hospital_status_awareness___routing_for_optimal_turn_around_decisions" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_hospital_status_awareness___routing_for_optimal_turn_around_decisions" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_hospital_status_awareness___routing_for_optimal_turn_around_decisions" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_hospital_status_awareness___routing_for_optimal_turn_around_decisions" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Pulsara</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>Zoll RescueNet</option>
-						<option>CentralSquare</option>
-						<option>Motorola Solutions</option>
-						<option>RapidSOS</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">ePCR initiation (not completion)</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_epcr_initiation__not_completion" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_epcr_initiation__not_completion" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_epcr_initiation__not_completion" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_epcr_initiation__not_completion" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_epcr_initiation__not_completion" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>Zoll RescueNet</option>
-						<option>Traumasoft</option>
-						<option>emsCharts</option>
-						<option>HealthEMS</option>
-						<option>First Due</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Transport vs treat-in-place consideration</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_transport_vs_treat_in_place_consideration" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_transport_vs_treat_in_place_consideration" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_transport_vs_treat_in_place_consideration" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_transport_vs_treat_in_place_consideration" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_transport_vs_treat_in_place_consideration" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>Zoll RescueNet</option>
-						<option>Pulsara</option>
-						<option>Traumasoft</option>
-						<option>HealthEMS</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-        </tbody>
-        <!-- ===== 4. Incident Command & Operations ===== -->
-		<tbody id="Incident Command & Operations">
-			<tr class="section-row">
-				<td colspan="5">4. Incident Command & Operations</td>
-			</tr>
-			<tr>
-				<td class="item-col">ICS structure</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_ics_structure" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_ics_structure" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_ics_structure" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_ics_structure" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_ics_structure" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>Tablet Command</option>
-						<option>Active911</option>
-						<option>Motorola Solutions</option>
-						<option>Veoci</option>
-						<option>WebEOC</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Personnel accountability</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_personnel_accountability" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_personnel_accountability" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_personnel_accountability" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_personnel_accountability" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_personnel_accountability" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Tablet Command</option>
-						<option>First Due</option>
-						<option>Active911</option>
-						<option>Parabellum</option>
-						<option>Accountability Systems</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">SCBA & safety monitoring</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_scba___safety_monitoring" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_scba___safety_monitoring" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_scba___safety_monitoring" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_scba___safety_monitoring" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_scba___safety_monitoring" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Scott Sight</option>
-						<option>MSA FireGrid</option>
-						<option>Dräger FireGround</option>
-						<option>First Due</option>
-						<option>Tablet Command</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Tactical assignments & span of control</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_tactical_assignments___span_of_control" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_tactical_assignments___span_of_control" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_tactical_assignments___span_of_control" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_tactical_assignments___span_of_control" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_tactical_assignments___span_of_control" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Tablet Command</option>
-						<option>First Due</option>
-						<option>Active911</option>
-						<option>Motorola Solutions</option>
-						<option>Veoci</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Multi-agency coordination</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_multi_agency_coordination" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_multi_agency_coordination" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_multi_agency_coordination" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_multi_agency_coordination" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_multi_agency_coordination" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Veoci</option>
-						<option>WebEOC</option>
-						<option>Motorola Solutions</option>
-						<option>CentralSquare</option>
-						<option>Hexagon</option>
-						<option>First Due</option>
-						<option>Tablet Command</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Resource management</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_resource_management" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_resource_management" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_resource_management" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_resource_management" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_resource_management" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>Tablet Command</option>
-						<option>Veoci</option>
-						<option>WebEOC</option>
-						<option>Motorola Solutions</option>
-						<option>CentralSquare</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Formal size-up declaration (arrival-based)</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_formal_size_up_declaration__arrival_based" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_formal_size_up_declaration__arrival_based" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_formal_size_up_declaration__arrival_based" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_formal_size_up_declaration__arrival_based" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_formal_size_up_declaration__arrival_based" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Tablet Command</option>
-						<option>First Due</option>
-						<option>Active911</option>
-						<option>Motorola Solutions</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Decision logging (strategy/tactics)</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_decision_logging__strategy_tactics" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_decision_logging__strategy_tactics" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_decision_logging__strategy_tactics" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_decision_logging__strategy_tactics" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_decision_logging__strategy_tactics" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Tablet Command</option>
-						<option>First Due</option>
-						<option>Veoci</option>
-						<option>WebEOC</option>
-						<option>Motorola Solutions</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Patient tracking (command-level visibility)</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_patient_tracking__command_level_visibility" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_patient_tracking__command_level_visibility" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_patient_tracking__command_level_visibility" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_patient_tracking__command_level_visibility" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_patient_tracking__command_level_visibility" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Pulsara</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>Zoll RescueNet</option>
-						<option>First Due</option>
-						<option>Tablet Command</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Multi-patient / MCI management / Triage (START/SALT)</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_multi_patient___mci_management" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_multi_patient___mci_management" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_multi_patient___mci_management" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_multi_patient___mci_management" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_multi_patient___mci_management" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Pulsara</option>
-						<option>Tablet Command</option>
-						<option>First Due</option>
-						<option>Veoci</option>
-						<option>WebEOC</option>
-						<option>ImageTrend</option>
-						<option>Zoll RescueNet</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Transport coordination</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_transport_coordination" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_transport_coordination" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_transport_coordination" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_transport_coordination" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_transport_coordination" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Pulsara</option>
-						<option>Zoll RescueNet</option>
-						<option>ImageTrend</option>
-						<option>ESO</option>
-						<option>Tablet Command</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Hospital distribution</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_hospital_distribution" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_hospital_distribution" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_hospital_distribution" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_hospital_distribution" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_hospital_distribution" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Pulsara</option>
-						<option>Zoll RescueNet</option>
-						<option>ImageTrend</option>
-						<option>ESO</option>
-						<option>HealthEMS</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Planned Events and Repeatable Command Models</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_hospital_distribution" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_hospital_distribution" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_hospital_distribution" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_hospital_distribution" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_hospital_distribution" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Pulsara</option>
-						<option>Zoll RescueNet</option>
-						<option>ImageTrend</option>
-						<option>ESO</option>
-						<option>HealthEMS</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-        </tbody>
-        <!-- ===== 5. Unified Incident Record (RMS Evolution) ===== -->
-		<tbody id="Unified Incident Record (RMS Evolution)">
-			<tr class="section-row">
-				<td colspan="5">5. Unified Incident Record (RMS Evolution)</td>
-			</tr>
-			<tr>
-				<td class="item-col">Incident timeline (auto-generated)</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_incident_timeline__auto_generated" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_incident_timeline__auto_generated" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_incident_timeline__auto_generated" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_incident_timeline__auto_generated" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_incident_timeline__auto_generated" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>ImageTrend</option>
-						<option>ESO</option>
-						<option>FireHouse Software</option>
-						<option>Emergency Reporting</option>
-						<option>CentralSquare</option>
-						<option>Motorola Solutions</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Fire + EMS integrated reporting</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_fire___ems_integrated_reporting" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_fire___ems_integrated_reporting" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_fire___ems_integrated_reporting" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_fire___ems_integrated_reporting" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_fire___ems_integrated_reporting" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>First Due</option>
-						<option>Zoll RescueNet</option>
-						<option>FireHouse Software</option>
-						<option>Emergency Reporting</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Personnel & apparatus activity</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_personnel___apparatus_activity" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_personnel___apparatus_activity" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_personnel___apparatus_activity" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_personnel___apparatus_activity" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_personnel___apparatus_activity" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>FireHouse Software</option>
-						<option>Emergency Reporting</option>
-						<option>Operative IQ</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">ePCR integration (not replacement)</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_epcr_integration__not_replacement" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_epcr_integration__not_replacement" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_epcr_integration__not_replacement" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_epcr_integration__not_replacement" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_epcr_integration__not_replacement" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>Zoll RescueNet</option>
-						<option>Traumasoft</option>
-						<option>emsCharts</option>
-						<option>HealthEMS</option>
-						<option>First Due</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Compliance (NERIS)</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_compliance__neris" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_compliance__neris" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_compliance__neris" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_compliance__neris" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_compliance__neris" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>First Due</option>
-						<option>FireHouse Software</option>
-						<option>Emergency Reporting</option>
-						<option>Tyler Technologies</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">QA/QI workflows</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_qa_qi_workflows" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_qa_qi_workflows" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_qa_qi_workflows" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_qa_qi_workflows" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_qa_qi_workflows" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>Zoll RescueNet</option>
-						<option>First Due</option>
-						<option>Traumasoft</option>
-						<option>HealthEMS</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-        </tbody>
-        <!-- ===== 6. Analytics, Planning & Continuous Improvement ===== -->
-		<tbody id="Analytics, Planning & Continuous Improvement">
-			<tr class="section-row">
-				<td colspan="5">6. Analytics, Planning & Continuous Improvement</td>
-			</tr>
-			<tr>
-				<td class="item-col">Response time analysis</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_response_time_analysis" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_response_time_analysis" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_response_time_analysis" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_response_time_analysis" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_response_time_analysis" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>First Due</option>
-						<option>Motorola Solutions</option>
-						<option>CentralSquare</option>
-						<option>Hexagon</option>
-						<option>Tyler Technologies</option>
-						<option>ArcGIS / Esri</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Deployment modeling</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_deployment_modeling" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_deployment_modeling" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_deployment_modeling" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_deployment_modeling" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_deployment_modeling" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>ArcGIS / Esri</option>
-						<option>Deccan LiveMUM</option>
-						<option>Motorola Solutions</option>
-						<option>CentralSquare</option>
-						<option>Hexagon</option>
-						<option>Tyler Technologies</option>
-						<option>First Due</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Staffing models</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_staffing_models" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_staffing_models" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_staffing_models" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_staffing_models" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_staffing_models" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>Aladtec</option>
-						<option>InTime</option>
-						<option>Vector Solutions (TargetSolutions)</option>
-						<option>eSchedule</option>
-						<option>Telestaff (UKG)</option>
-						<option>CrewSense</option>
-						<option>First Due</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Budget & justification</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_budget___justification" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_budget___justification" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_budget___justification" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_budget___justification" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_budget___justification" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>First Due</option>
-						<option>Tyler Technologies</option>
-						<option>Power BI</option>
-						<option>ArcGIS / Esri</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Accreditation (ISO, CFAI)</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_accreditation__iso__cfai" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_accreditation__iso__cfai" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_accreditation__iso__cfai" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_accreditation__iso__cfai" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_accreditation__iso__cfai" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>First Due</option>
-						<option>FireHouse Software</option>
-						<option>Emergency Reporting</option>
-						<option>Vector Solutions (TargetSolutions)</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Frequent caller analysis</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_frequent_caller_analysis" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_frequent_caller_analysis" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_frequent_caller_analysis" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_frequent_caller_analysis" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_frequent_caller_analysis" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>ESO</option>
-						<option>ImageTrend</option>
-						<option>Pulsara</option>
-						<option>HealthEMS</option>
-						<option>Power BI</option>
-						<option>ArcGIS / Esri</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="item-col">Personnel wellness, health & exposure tracking</td>
-				<td class="pain-col">
-					<div class="pain-group">
-						<label>1<input type="radio" name="pain_personnel_wellness__health___exposure_tracking" value="1"/>
-						</label>
-						<label>2<input type="radio" name="pain_personnel_wellness__health___exposure_tracking" value="2"/>
-						</label>
-						<label>3<input type="radio" name="pain_personnel_wellness__health___exposure_tracking" value="3"/>
-						</label>
-						<label>4<input type="radio" name="pain_personnel_wellness__health___exposure_tracking" value="4"/>
-						</label>
-						<label>5<input type="radio" name="pain_personnel_wellness__health___exposure_tracking" value="5"/>
-						</label>
-					</div>
-				</td>
-				<td class="tools-col">
-					<select class="tools-select">
-						<option value=""/>
-						<option>Versaterm</option>
-						<option>First Due</option>
-						<option>ImageTrend</option>
-						<option>ESO</option>
-						<option>Vector Solutions (TargetSolutions)</option>
-						<option>Operative IQ</option>
-						<option>Emergency Reporting</option>
-						<option>other</option>
-					</select>
-				</td>
-				<td class="workaround-col">
-					<input type="checkbox"/>
-				</td>
-				<td class="notes-col">
-					<textarea class="notes-input">
-
-					</textarea>
-				</td>
-			</tr>
-        </tbody>
-      </table>
+    <!-- ══ Instructions ════════════════════════════════════════════ -->
+    <div class="instruction-card">
+      <p>The following list itemizes critical fire and EMS workflows. For each item, please fill in:</p>
+      <ol>
+        <li><strong>Pain level</strong> — rate from 1 (minimal) to 5 (severe)</li>
+        <li><strong>Current tools used</strong> — select the software application used to manage it</li>
+        <li><strong>Workarounds required?</strong> — check if workarounds are needed</li>
+        <li><strong>Notes</strong> — any relevant detail or context</li>
+      </ol>
+      <p style="margin-top:10px;">
+        When finished, click <strong>Submit by Email</strong> at the bottom of the page.
+        Your responses will open in your email client pre-addressed to
+        <a href="mailto:alex.menkes@versaterm.com">alex.menkes@versaterm.com</a>.
+      </p>
     </div>
-  </div>
-  <script>
-    function collectResults() {
-	  const responder = document.getElementById('responderName')?.value || 'Not provided';
-	  const department = document.getElementById('departmentName')?.value || 'Not provided';
 
-	  lines.push('Responder: ' + responder);
-	  lines.push('Department: ' + department);
-	  lines.push('');
+    <!-- ══ Respondent Fields ════════════════════════════════════════ -->
+    <div class="respondent-card">
+      <div class="field">
+        <label for="responderName">Name and title of responder</label>
+        <input type="text" id="responderName" placeholder="e.g. Jane Smith, Fire Chief" />
+      </div>
+      <div class="field">
+        <label for="departmentName">Department name</label>
+        <input type="text" id="departmentName" placeholder="e.g. Springfield Fire Department" />
+      </div>
+    </div>
+
+    <!-- ══ Assessment Table ═════════════════════════════════════════ -->
+    <div class="table-card">
+      <div class="table-wrap">
+        <table>
+
+          <!-- ── Headers ── -->
+          <thead>
+            <tr>
+              <th class="item-col">Workflow / Area</th>
+              <th class="pain-col vertical-header"><span>Pain level</span></th>
+              <th class="tools-col vertical-header"><span>Current tools used</span></th>
+              <th class="wa-col vertical-header"><span>Workarounds required?</span></th>
+              <th class="notes-col vertical-header"><span>Notes</span></th>
+            </tr>
+          </thead>
+
+          <!-- ══════════════════════════════════════════════════════════
+               1. Pre-Incident Readiness
+               ══════════════════════════════════════════════════════════ -->
+          <tbody>
+            <tr class="section-row">
+              <td colspan="5">1. Pre-Incident Readiness</td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Preplans (structures, hazards, hydrants)</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_preplans" value="1"/></label>
+                  <label>2<input type="radio" name="pain_preplans" value="2"/></label>
+                  <label>3<input type="radio" name="pain_preplans" value="3"/></label>
+                  <label>4<input type="radio" name="pain_preplans" value="4"/></label>
+                  <label>5<input type="radio" name="pain_preplans" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>ImageTrend</option>
+                  <option>ESO</option>
+                  <option>FireHouse Software</option>
+                  <option>Emergency Reporting</option>
+                  <option>ArcGIS / Esri</option>
+                  <option>TraxWorx</option>
+                  <option>Cityworks</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Inspections &amp; code enforcement</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_inspections" value="1"/></label>
+                  <label>2<input type="radio" name="pain_inspections" value="2"/></label>
+                  <label>3<input type="radio" name="pain_inspections" value="3"/></label>
+                  <label>4<input type="radio" name="pain_inspections" value="4"/></label>
+                  <label>5<input type="radio" name="pain_inspections" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>ImageTrend</option>
+                  <option>ESO</option>
+                  <option>FireHouse Software</option>
+                  <option>Emergency Reporting</option>
+                  <option>Tyler Technologies</option>
+                  <option>Cityworks</option>
+                  <option>ArcGIS / Esri</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Community risk reduction (CRR)</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_crr" value="1"/></label>
+                  <label>2<input type="radio" name="pain_crr" value="2"/></label>
+                  <label>3<input type="radio" name="pain_crr" value="3"/></label>
+                  <label>4<input type="radio" name="pain_crr" value="4"/></label>
+                  <label>5<input type="radio" name="pain_crr" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>ImageTrend</option>
+                  <option>ESO</option>
+                  <option>FireHouse Software</option>
+                  <option>Emergency Reporting</option>
+                  <option>ArcGIS / Esri</option>
+                  <option>Zoll RescueNet</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Training &amp; certifications</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_training" value="1"/></label>
+                  <label>2<input type="radio" name="pain_training" value="2"/></label>
+                  <label>3<input type="radio" name="pain_training" value="3"/></label>
+                  <label>4<input type="radio" name="pain_training" value="4"/></label>
+                  <label>5<input type="radio" name="pain_training" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>ImageTrend</option>
+                  <option>ESO</option>
+                  <option>Vector Solutions (TargetSolutions)</option>
+                  <option>FireHouse Software</option>
+                  <option>Emergency Reporting</option>
+                  <option>Acadis</option>
+                  <option>CrewSense</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Staffing &amp; scheduling</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_staffing_sched" value="1"/></label>
+                  <label>2<input type="radio" name="pain_staffing_sched" value="2"/></label>
+                  <label>3<input type="radio" name="pain_staffing_sched" value="3"/></label>
+                  <label>4<input type="radio" name="pain_staffing_sched" value="4"/></label>
+                  <label>5<input type="radio" name="pain_staffing_sched" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>ImageTrend</option>
+                  <option>ESO</option>
+                  <option>Aladtec</option>
+                  <option>InTime</option>
+                  <option>Vector Solutions (TargetSolutions)</option>
+                  <option>eSchedule</option>
+                  <option>Telestaff (UKG)</option>
+                  <option>CrewSense</option>
+                  <option>FireHouse Software</option>
+                  <option>Emergency Reporting</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Apparatus &amp; equipment readiness</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_apparatus" value="1"/></label>
+                  <label>2<input type="radio" name="pain_apparatus" value="2"/></label>
+                  <label>3<input type="radio" name="pain_apparatus" value="3"/></label>
+                  <label>4<input type="radio" name="pain_apparatus" value="4"/></label>
+                  <label>5<input type="radio" name="pain_apparatus" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>ImageTrend</option>
+                  <option>ESO</option>
+                  <option>FireHouse Software</option>
+                  <option>Emergency Reporting</option>
+                  <option>Operative IQ</option>
+                  <option>Asset Panda</option>
+                  <option>Fleetio</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">System status management (move-up / cover)</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_ssm" value="1"/></label>
+                  <label>2<input type="radio" name="pain_ssm" value="2"/></label>
+                  <label>3<input type="radio" name="pain_ssm" value="3"/></label>
+                  <label>4<input type="radio" name="pain_ssm" value="4"/></label>
+                  <label>5<input type="radio" name="pain_ssm" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Motorola Solutions (PremierOne / CommandCentral)</option>
+                  <option>CentralSquare</option>
+                  <option>Hexagon</option>
+                  <option>Tyler Technologies</option>
+                  <option>Zoll Dispatch</option>
+                  <option>Spillman (Motorola)</option>
+                  <option>RapidDeploy</option>
+                  <option>StreetWise CADlink</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Community paramedicine programs</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_comm_param" value="1"/></label>
+                  <label>2<input type="radio" name="pain_comm_param" value="2"/></label>
+                  <label>3<input type="radio" name="pain_comm_param" value="3"/></label>
+                  <label>4<input type="radio" name="pain_comm_param" value="4"/></label>
+                  <label>5<input type="radio" name="pain_comm_param" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>ImageTrend</option>
+                  <option>ESO</option>
+                  <option>Zoll RescueNet</option>
+                  <option>Pulsara</option>
+                  <option>First Due</option>
+                  <option>HealthEMS</option>
+                  <option>Traumasoft</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+          </tbody>
+
+          <!-- ══════════════════════════════════════════════════════════
+               2. Dispatch & System Coordination
+               ══════════════════════════════════════════════════════════ -->
+          <tbody>
+            <tr class="section-row">
+              <td colspan="5">2. Dispatch &amp; System Coordination</td>
+            </tr>
+
+            <tr>
+              <td class="item-col">911 intake</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_911" value="1"/></label>
+                  <label>2<input type="radio" name="pain_911" value="2"/></label>
+                  <label>3<input type="radio" name="pain_911" value="3"/></label>
+                  <label>4<input type="radio" name="pain_911" value="4"/></label>
+                  <label>5<input type="radio" name="pain_911" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Motorola Solutions (PremierOne / CommandCentral)</option>
+                  <option>CentralSquare</option>
+                  <option>Hexagon</option>
+                  <option>Tyler Technologies</option>
+                  <option>RapidDeploy</option>
+                  <option>Zoll Dispatch</option>
+                  <option>Spillman (Motorola)</option>
+                  <option>Priority Dispatch</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Call triage &amp; prioritization</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_triage" value="1"/></label>
+                  <label>2<input type="radio" name="pain_triage" value="2"/></label>
+                  <label>3<input type="radio" name="pain_triage" value="3"/></label>
+                  <label>4<input type="radio" name="pain_triage" value="4"/></label>
+                  <label>5<input type="radio" name="pain_triage" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Priority Dispatch</option>
+                  <option>Motorola Solutions (PremierOne / CommandCentral)</option>
+                  <option>CentralSquare</option>
+                  <option>Hexagon</option>
+                  <option>Tyler Technologies</option>
+                  <option>RapidDeploy</option>
+                  <option>Zoll Dispatch</option>
+                  <option>ProQA</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Unit recommendation (closest vs correct)</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_unit_rec" value="1"/></label>
+                  <label>2<input type="radio" name="pain_unit_rec" value="2"/></label>
+                  <label>3<input type="radio" name="pain_unit_rec" value="3"/></label>
+                  <label>4<input type="radio" name="pain_unit_rec" value="4"/></label>
+                  <label>5<input type="radio" name="pain_unit_rec" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Motorola Solutions (PremierOne / CommandCentral)</option>
+                  <option>CentralSquare</option>
+                  <option>Hexagon</option>
+                  <option>Tyler Technologies</option>
+                  <option>Spillman (Motorola)</option>
+                  <option>RapidDeploy</option>
+                  <option>Zoll Dispatch</option>
+                  <option>ArcGIS / Esri</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Dynamic deployment / coverage optimization</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_dyn_deploy" value="1"/></label>
+                  <label>2<input type="radio" name="pain_dyn_deploy" value="2"/></label>
+                  <label>3<input type="radio" name="pain_dyn_deploy" value="3"/></label>
+                  <label>4<input type="radio" name="pain_dyn_deploy" value="4"/></label>
+                  <label>5<input type="radio" name="pain_dyn_deploy" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Motorola Solutions (PremierOne / CommandCentral)</option>
+                  <option>CentralSquare</option>
+                  <option>Hexagon</option>
+                  <option>Tyler Technologies</option>
+                  <option>RapidDeploy</option>
+                  <option>ArcGIS / Esri</option>
+                  <option>StreetWise CADlink</option>
+                  <option>Deccan LiveMUM</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Dispatch routing (staging, perimeters)</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_dispatch_route" value="1"/></label>
+                  <label>2<input type="radio" name="pain_dispatch_route" value="2"/></label>
+                  <label>3<input type="radio" name="pain_dispatch_route" value="3"/></label>
+                  <label>4<input type="radio" name="pain_dispatch_route" value="4"/></label>
+                  <label>5<input type="radio" name="pain_dispatch_route" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Motorola Solutions (PremierOne / CommandCentral)</option>
+                  <option>CentralSquare</option>
+                  <option>Hexagon</option>
+                  <option>Tyler Technologies</option>
+                  <option>RapidDeploy</option>
+                  <option>ArcGIS / Esri</option>
+                  <option>StreetWise CADlink</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Interagency coordination / mutual aid</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_mutual_aid" value="1"/></label>
+                  <label>2<input type="radio" name="pain_mutual_aid" value="2"/></label>
+                  <label>3<input type="radio" name="pain_mutual_aid" value="3"/></label>
+                  <label>4<input type="radio" name="pain_mutual_aid" value="4"/></label>
+                  <label>5<input type="radio" name="pain_mutual_aid" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Motorola Solutions (PremierOne / CommandCentral)</option>
+                  <option>CentralSquare</option>
+                  <option>Hexagon</option>
+                  <option>Tyler Technologies</option>
+                  <option>Veoci</option>
+                  <option>WebEOC</option>
+                  <option>ArcGIS / Esri</option>
+                  <option>First Due</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+          </tbody>
+
+          <!-- ══════════════════════════════════════════════════════════
+               3. En Route & On-Scene Operations
+               ══════════════════════════════════════════════════════════ -->
+          <tbody>
+            <tr class="section-row">
+              <td colspan="5">3. En Route &amp; On-Scene Operations</td>
+            </tr>
+            <tr class="subsection-row">
+              <td colspan="5">Core Operational Layer</td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Dynamic size-up (en route → on arrival)</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_sizeup" value="1"/></label>
+                  <label>2<input type="radio" name="pain_sizeup" value="2"/></label>
+                  <label>3<input type="radio" name="pain_sizeup" value="3"/></label>
+                  <label>4<input type="radio" name="pain_sizeup" value="4"/></label>
+                  <label>5<input type="radio" name="pain_sizeup" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>Tablet Command</option>
+                  <option>Active911</option>
+                  <option>Motorola Solutions (CommandCentral)</option>
+                  <option>CentralSquare</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Preplans, hydrants, hazmat, layouts</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_preplan_enroute" value="1"/></label>
+                  <label>2<input type="radio" name="pain_preplan_enroute" value="2"/></label>
+                  <label>3<input type="radio" name="pain_preplan_enroute" value="3"/></label>
+                  <label>4<input type="radio" name="pain_preplan_enroute" value="4"/></label>
+                  <label>5<input type="radio" name="pain_preplan_enroute" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>ImageTrend</option>
+                  <option>ESO</option>
+                  <option>FireHouse Software</option>
+                  <option>ArcGIS / Esri</option>
+                  <option>TraxWorx</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Staffing commitment</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_staff_commit" value="1"/></label>
+                  <label>2<input type="radio" name="pain_staff_commit" value="2"/></label>
+                  <label>3<input type="radio" name="pain_staff_commit" value="3"/></label>
+                  <label>4<input type="radio" name="pain_staff_commit" value="4"/></label>
+                  <label>5<input type="radio" name="pain_staff_commit" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>Aladtec</option>
+                  <option>InTime</option>
+                  <option>Vector Solutions (TargetSolutions)</option>
+                  <option>eSchedule</option>
+                  <option>Telestaff (UKG)</option>
+                  <option>CrewSense</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Unit status &amp; ETA</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_unit_eta" value="1"/></label>
+                  <label>2<input type="radio" name="pain_unit_eta" value="2"/></label>
+                  <label>3<input type="radio" name="pain_unit_eta" value="3"/></label>
+                  <label>4<input type="radio" name="pain_unit_eta" value="4"/></label>
+                  <label>5<input type="radio" name="pain_unit_eta" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Motorola Solutions (PremierOne / CommandCentral)</option>
+                  <option>CentralSquare</option>
+                  <option>Hexagon</option>
+                  <option>Tyler Technologies</option>
+                  <option>Zoll Dispatch</option>
+                  <option>Spillman (Motorola)</option>
+                  <option>Active911</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Navigation &amp; routing</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_nav" value="1"/></label>
+                  <label>2<input type="radio" name="pain_nav" value="2"/></label>
+                  <label>3<input type="radio" name="pain_nav" value="3"/></label>
+                  <label>4<input type="radio" name="pain_nav" value="4"/></label>
+                  <label>5<input type="radio" name="pain_nav" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Motorola Solutions (PremierOne / CommandCentral)</option>
+                  <option>CentralSquare</option>
+                  <option>Hexagon</option>
+                  <option>Tyler Technologies</option>
+                  <option>Google Maps</option>
+                  <option>Waze</option>
+                  <option>ArcGIS / Esri</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Real-time data ingestion</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_rtdata" value="1"/></label>
+                  <label>2<input type="radio" name="pain_rtdata" value="2"/></label>
+                  <label>3<input type="radio" name="pain_rtdata" value="3"/></label>
+                  <label>4<input type="radio" name="pain_rtdata" value="4"/></label>
+                  <label>5<input type="radio" name="pain_rtdata" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>Motorola Solutions (CommandCentral)</option>
+                  <option>CentralSquare</option>
+                  <option>Hexagon</option>
+                  <option>Pulsara</option>
+                  <option>ImageTrend</option>
+                  <option>ESO</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">IoT / wearables</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_iot" value="1"/></label>
+                  <label>2<input type="radio" name="pain_iot" value="2"/></label>
+                  <label>3<input type="radio" name="pain_iot" value="3"/></label>
+                  <label>4<input type="radio" name="pain_iot" value="4"/></label>
+                  <label>5<input type="radio" name="pain_iot" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Motorola Solutions</option>
+                  <option>First Due</option>
+                  <option>Pulsara</option>
+                  <option>Samsung Knox / wearables</option>
+                  <option>Garmin</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Sensors</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_sensors" value="1"/></label>
+                  <label>2<input type="radio" name="pain_sensors" value="2"/></label>
+                  <label>3<input type="radio" name="pain_sensors" value="3"/></label>
+                  <label>4<input type="radio" name="pain_sensors" value="4"/></label>
+                  <label>5<input type="radio" name="pain_sensors" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>Motorola Solutions</option>
+                  <option>Pulsara</option>
+                  <option>RapidSOS</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Drones / video</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_drones" value="1"/></label>
+                  <label>2<input type="radio" name="pain_drones" value="2"/></label>
+                  <label>3<input type="radio" name="pain_drones" value="3"/></label>
+                  <label>4<input type="radio" name="pain_drones" value="4"/></label>
+                  <label>5<input type="radio" name="pain_drones" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>DroneSense</option>
+                  <option>Skydio</option>
+                  <option>DJI FlightHub</option>
+                  <option>Motorola Solutions</option>
+                  <option>First Due</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Scene safety awareness</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_scene_safety" value="1"/></label>
+                  <label>2<input type="radio" name="pain_scene_safety" value="2"/></label>
+                  <label>3<input type="radio" name="pain_scene_safety" value="3"/></label>
+                  <label>4<input type="radio" name="pain_scene_safety" value="4"/></label>
+                  <label>5<input type="radio" name="pain_scene_safety" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>Tablet Command</option>
+                  <option>Active911</option>
+                  <option>Motorola Solutions</option>
+                  <option>Pulsara</option>
+                  <option>ArcGIS / Esri</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Unit coordination</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_unit_coord" value="1"/></label>
+                  <label>2<input type="radio" name="pain_unit_coord" value="2"/></label>
+                  <label>3<input type="radio" name="pain_unit_coord" value="3"/></label>
+                  <label>4<input type="radio" name="pain_unit_coord" value="4"/></label>
+                  <label>5<input type="radio" name="pain_unit_coord" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>Tablet Command</option>
+                  <option>Active911</option>
+                  <option>Motorola Solutions</option>
+                  <option>CentralSquare</option>
+                  <option>Hexagon</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr class="subsection-row">
+              <td colspan="5">EMS Overlay (when applicable)</td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Patient assessment &amp; vitals</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_pt_assess" value="1"/></label>
+                  <label>2<input type="radio" name="pain_pt_assess" value="2"/></label>
+                  <label>3<input type="radio" name="pain_pt_assess" value="3"/></label>
+                  <label>4<input type="radio" name="pain_pt_assess" value="4"/></label>
+                  <label>5<input type="radio" name="pain_pt_assess" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>Zoll RescueNet</option>
+                  <option>Pulsara</option>
+                  <option>Traumasoft</option>
+                  <option>emsCharts</option>
+                  <option>HealthEMS</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Treatment protocol selection</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_protocol" value="1"/></label>
+                  <label>2<input type="radio" name="pain_protocol" value="2"/></label>
+                  <label>3<input type="radio" name="pain_protocol" value="3"/></label>
+                  <label>4<input type="radio" name="pain_protocol" value="4"/></label>
+                  <label>5<input type="radio" name="pain_protocol" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>Zoll RescueNet</option>
+                  <option>Pulsara</option>
+                  <option>Traumasoft</option>
+                  <option>emsCharts</option>
+                  <option>MDCalc</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Medication planning</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_meds" value="1"/></label>
+                  <label>2<input type="radio" name="pain_meds" value="2"/></label>
+                  <label>3<input type="radio" name="pain_meds" value="3"/></label>
+                  <label>4<input type="radio" name="pain_meds" value="4"/></label>
+                  <label>5<input type="radio" name="pain_meds" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>Zoll RescueNet</option>
+                  <option>Pulsara</option>
+                  <option>Traumasoft</option>
+                  <option>emsCharts</option>
+                  <option>LogRx</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Hospital status awareness &amp; routing for optimal turn-around decisions</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_hosp_status" value="1"/></label>
+                  <label>2<input type="radio" name="pain_hosp_status" value="2"/></label>
+                  <label>3<input type="radio" name="pain_hosp_status" value="3"/></label>
+                  <label>4<input type="radio" name="pain_hosp_status" value="4"/></label>
+                  <label>5<input type="radio" name="pain_hosp_status" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Pulsara</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>Zoll RescueNet</option>
+                  <option>CentralSquare</option>
+                  <option>Motorola Solutions</option>
+                  <option>RapidSOS</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">ePCR initiation (not completion)</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_epcr_init" value="1"/></label>
+                  <label>2<input type="radio" name="pain_epcr_init" value="2"/></label>
+                  <label>3<input type="radio" name="pain_epcr_init" value="3"/></label>
+                  <label>4<input type="radio" name="pain_epcr_init" value="4"/></label>
+                  <label>5<input type="radio" name="pain_epcr_init" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>Zoll RescueNet</option>
+                  <option>Traumasoft</option>
+                  <option>emsCharts</option>
+                  <option>HealthEMS</option>
+                  <option>First Due</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Transport vs treat-in-place consideration</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_transport_tip" value="1"/></label>
+                  <label>2<input type="radio" name="pain_transport_tip" value="2"/></label>
+                  <label>3<input type="radio" name="pain_transport_tip" value="3"/></label>
+                  <label>4<input type="radio" name="pain_transport_tip" value="4"/></label>
+                  <label>5<input type="radio" name="pain_transport_tip" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>Zoll RescueNet</option>
+                  <option>Pulsara</option>
+                  <option>Traumasoft</option>
+                  <option>HealthEMS</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+          </tbody>
+
+          <!-- ══════════════════════════════════════════════════════════
+               4. Incident Command & Operations
+               ══════════════════════════════════════════════════════════ -->
+          <tbody>
+            <tr class="section-row">
+              <td colspan="5">4. Incident Command &amp; Operations</td>
+            </tr>
+
+            <tr>
+              <td class="item-col">ICS structure</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_ics" value="1"/></label>
+                  <label>2<input type="radio" name="pain_ics" value="2"/></label>
+                  <label>3<input type="radio" name="pain_ics" value="3"/></label>
+                  <label>4<input type="radio" name="pain_ics" value="4"/></label>
+                  <label>5<input type="radio" name="pain_ics" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>Tablet Command</option>
+                  <option>Active911</option>
+                  <option>Motorola Solutions</option>
+                  <option>Veoci</option>
+                  <option>WebEOC</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Personnel accountability</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_acct" value="1"/></label>
+                  <label>2<input type="radio" name="pain_acct" value="2"/></label>
+                  <label>3<input type="radio" name="pain_acct" value="3"/></label>
+                  <label>4<input type="radio" name="pain_acct" value="4"/></label>
+                  <label>5<input type="radio" name="pain_acct" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Tablet Command</option>
+                  <option>First Due</option>
+                  <option>Active911</option>
+                  <option>Parabellum</option>
+                  <option>Accountability Systems</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">SCBA &amp; safety monitoring</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_scba" value="1"/></label>
+                  <label>2<input type="radio" name="pain_scba" value="2"/></label>
+                  <label>3<input type="radio" name="pain_scba" value="3"/></label>
+                  <label>4<input type="radio" name="pain_scba" value="4"/></label>
+                  <label>5<input type="radio" name="pain_scba" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Scott Sight</option>
+                  <option>MSA FireGrid</option>
+                  <option>Dräger FireGround</option>
+                  <option>First Due</option>
+                  <option>Tablet Command</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Tactical assignments &amp; span of control</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_tactical" value="1"/></label>
+                  <label>2<input type="radio" name="pain_tactical" value="2"/></label>
+                  <label>3<input type="radio" name="pain_tactical" value="3"/></label>
+                  <label>4<input type="radio" name="pain_tactical" value="4"/></label>
+                  <label>5<input type="radio" name="pain_tactical" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Tablet Command</option>
+                  <option>First Due</option>
+                  <option>Active911</option>
+                  <option>Motorola Solutions</option>
+                  <option>Veoci</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Multi-agency coordination</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_mac" value="1"/></label>
+                  <label>2<input type="radio" name="pain_mac" value="2"/></label>
+                  <label>3<input type="radio" name="pain_mac" value="3"/></label>
+                  <label>4<input type="radio" name="pain_mac" value="4"/></label>
+                  <label>5<input type="radio" name="pain_mac" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Veoci</option>
+                  <option>WebEOC</option>
+                  <option>Motorola Solutions</option>
+                  <option>CentralSquare</option>
+                  <option>Hexagon</option>
+                  <option>First Due</option>
+                  <option>Tablet Command</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Resource management</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_resource" value="1"/></label>
+                  <label>2<input type="radio" name="pain_resource" value="2"/></label>
+                  <label>3<input type="radio" name="pain_resource" value="3"/></label>
+                  <label>4<input type="radio" name="pain_resource" value="4"/></label>
+                  <label>5<input type="radio" name="pain_resource" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>Tablet Command</option>
+                  <option>Veoci</option>
+                  <option>WebEOC</option>
+                  <option>Motorola Solutions</option>
+                  <option>CentralSquare</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Formal size-up declaration (arrival-based)</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_formal_sizeup" value="1"/></label>
+                  <label>2<input type="radio" name="pain_formal_sizeup" value="2"/></label>
+                  <label>3<input type="radio" name="pain_formal_sizeup" value="3"/></label>
+                  <label>4<input type="radio" name="pain_formal_sizeup" value="4"/></label>
+                  <label>5<input type="radio" name="pain_formal_sizeup" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Tablet Command</option>
+                  <option>First Due</option>
+                  <option>Active911</option>
+                  <option>Motorola Solutions</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Decision logging (strategy / tactics)</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_decision_log" value="1"/></label>
+                  <label>2<input type="radio" name="pain_decision_log" value="2"/></label>
+                  <label>3<input type="radio" name="pain_decision_log" value="3"/></label>
+                  <label>4<input type="radio" name="pain_decision_log" value="4"/></label>
+                  <label>5<input type="radio" name="pain_decision_log" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Tablet Command</option>
+                  <option>First Due</option>
+                  <option>Veoci</option>
+                  <option>WebEOC</option>
+                  <option>Motorola Solutions</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Patient tracking (command-level visibility)</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_pt_track" value="1"/></label>
+                  <label>2<input type="radio" name="pain_pt_track" value="2"/></label>
+                  <label>3<input type="radio" name="pain_pt_track" value="3"/></label>
+                  <label>4<input type="radio" name="pain_pt_track" value="4"/></label>
+                  <label>5<input type="radio" name="pain_pt_track" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Pulsara</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>Zoll RescueNet</option>
+                  <option>First Due</option>
+                  <option>Tablet Command</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Multi-patient / MCI management / Triage (START / SALT)</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_mci" value="1"/></label>
+                  <label>2<input type="radio" name="pain_mci" value="2"/></label>
+                  <label>3<input type="radio" name="pain_mci" value="3"/></label>
+                  <label>4<input type="radio" name="pain_mci" value="4"/></label>
+                  <label>5<input type="radio" name="pain_mci" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Pulsara</option>
+                  <option>Tablet Command</option>
+                  <option>First Due</option>
+                  <option>Veoci</option>
+                  <option>WebEOC</option>
+                  <option>ImageTrend</option>
+                  <option>Zoll RescueNet</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Transport coordination</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_transport_coord" value="1"/></label>
+                  <label>2<input type="radio" name="pain_transport_coord" value="2"/></label>
+                  <label>3<input type="radio" name="pain_transport_coord" value="3"/></label>
+                  <label>4<input type="radio" name="pain_transport_coord" value="4"/></label>
+                  <label>5<input type="radio" name="pain_transport_coord" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Pulsara</option>
+                  <option>Zoll RescueNet</option>
+                  <option>ImageTrend</option>
+                  <option>ESO</option>
+                  <option>Tablet Command</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Hospital distribution</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_hosp_dist" value="1"/></label>
+                  <label>2<input type="radio" name="pain_hosp_dist" value="2"/></label>
+                  <label>3<input type="radio" name="pain_hosp_dist" value="3"/></label>
+                  <label>4<input type="radio" name="pain_hosp_dist" value="4"/></label>
+                  <label>5<input type="radio" name="pain_hosp_dist" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Pulsara</option>
+                  <option>Zoll RescueNet</option>
+                  <option>ImageTrend</option>
+                  <option>ESO</option>
+                  <option>HealthEMS</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Planned events and repeatable command models</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_planned_events" value="1"/></label>
+                  <label>2<input type="radio" name="pain_planned_events" value="2"/></label>
+                  <label>3<input type="radio" name="pain_planned_events" value="3"/></label>
+                  <label>4<input type="radio" name="pain_planned_events" value="4"/></label>
+                  <label>5<input type="radio" name="pain_planned_events" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Pulsara</option>
+                  <option>Zoll RescueNet</option>
+                  <option>ImageTrend</option>
+                  <option>ESO</option>
+                  <option>HealthEMS</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+          </tbody>
+
+          <!-- ══════════════════════════════════════════════════════════
+               5. Unified Incident Record (RMS Evolution)
+               ══════════════════════════════════════════════════════════ -->
+          <tbody>
+            <tr class="section-row">
+              <td colspan="5">5. Unified Incident Record (RMS Evolution)</td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Incident timeline (auto-generated)</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_timeline" value="1"/></label>
+                  <label>2<input type="radio" name="pain_timeline" value="2"/></label>
+                  <label>3<input type="radio" name="pain_timeline" value="3"/></label>
+                  <label>4<input type="radio" name="pain_timeline" value="4"/></label>
+                  <label>5<input type="radio" name="pain_timeline" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>ImageTrend</option>
+                  <option>ESO</option>
+                  <option>FireHouse Software</option>
+                  <option>Emergency Reporting</option>
+                  <option>CentralSquare</option>
+                  <option>Motorola Solutions</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Fire + EMS integrated reporting</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_fire_ems_rpt" value="1"/></label>
+                  <label>2<input type="radio" name="pain_fire_ems_rpt" value="2"/></label>
+                  <label>3<input type="radio" name="pain_fire_ems_rpt" value="3"/></label>
+                  <label>4<input type="radio" name="pain_fire_ems_rpt" value="4"/></label>
+                  <label>5<input type="radio" name="pain_fire_ems_rpt" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>First Due</option>
+                  <option>Zoll RescueNet</option>
+                  <option>FireHouse Software</option>
+                  <option>Emergency Reporting</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Personnel &amp; apparatus activity</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_pers_app" value="1"/></label>
+                  <label>2<input type="radio" name="pain_pers_app" value="2"/></label>
+                  <label>3<input type="radio" name="pain_pers_app" value="3"/></label>
+                  <label>4<input type="radio" name="pain_pers_app" value="4"/></label>
+                  <label>5<input type="radio" name="pain_pers_app" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>FireHouse Software</option>
+                  <option>Emergency Reporting</option>
+                  <option>Operative IQ</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">ePCR integration (not replacement)</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_epcr_int" value="1"/></label>
+                  <label>2<input type="radio" name="pain_epcr_int" value="2"/></label>
+                  <label>3<input type="radio" name="pain_epcr_int" value="3"/></label>
+                  <label>4<input type="radio" name="pain_epcr_int" value="4"/></label>
+                  <label>5<input type="radio" name="pain_epcr_int" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>Zoll RescueNet</option>
+                  <option>Traumasoft</option>
+                  <option>emsCharts</option>
+                  <option>HealthEMS</option>
+                  <option>First Due</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Compliance (NERIS)</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_neris" value="1"/></label>
+                  <label>2<input type="radio" name="pain_neris" value="2"/></label>
+                  <label>3<input type="radio" name="pain_neris" value="3"/></label>
+                  <label>4<input type="radio" name="pain_neris" value="4"/></label>
+                  <label>5<input type="radio" name="pain_neris" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>First Due</option>
+                  <option>FireHouse Software</option>
+                  <option>Emergency Reporting</option>
+                  <option>Tyler Technologies</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">QA / QI workflows</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_qaqi" value="1"/></label>
+                  <label>2<input type="radio" name="pain_qaqi" value="2"/></label>
+                  <label>3<input type="radio" name="pain_qaqi" value="3"/></label>
+                  <label>4<input type="radio" name="pain_qaqi" value="4"/></label>
+                  <label>5<input type="radio" name="pain_qaqi" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>Zoll RescueNet</option>
+                  <option>First Due</option>
+                  <option>Traumasoft</option>
+                  <option>HealthEMS</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+          </tbody>
+
+          <!-- ══════════════════════════════════════════════════════════
+               6. Analytics, Planning & Continuous Improvement
+               ══════════════════════════════════════════════════════════ -->
+          <tbody>
+            <tr class="section-row">
+              <td colspan="5">6. Analytics, Planning &amp; Continuous Improvement</td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Response time analysis</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_rta" value="1"/></label>
+                  <label>2<input type="radio" name="pain_rta" value="2"/></label>
+                  <label>3<input type="radio" name="pain_rta" value="3"/></label>
+                  <label>4<input type="radio" name="pain_rta" value="4"/></label>
+                  <label>5<input type="radio" name="pain_rta" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>First Due</option>
+                  <option>Motorola Solutions</option>
+                  <option>CentralSquare</option>
+                  <option>Hexagon</option>
+                  <option>Tyler Technologies</option>
+                  <option>ArcGIS / Esri</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Deployment modeling</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_deploy_model" value="1"/></label>
+                  <label>2<input type="radio" name="pain_deploy_model" value="2"/></label>
+                  <label>3<input type="radio" name="pain_deploy_model" value="3"/></label>
+                  <label>4<input type="radio" name="pain_deploy_model" value="4"/></label>
+                  <label>5<input type="radio" name="pain_deploy_model" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>ArcGIS / Esri</option>
+                  <option>Deccan LiveMUM</option>
+                  <option>Motorola Solutions</option>
+                  <option>CentralSquare</option>
+                  <option>Hexagon</option>
+                  <option>Tyler Technologies</option>
+                  <option>First Due</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Staffing models</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_staff_model" value="1"/></label>
+                  <label>2<input type="radio" name="pain_staff_model" value="2"/></label>
+                  <label>3<input type="radio" name="pain_staff_model" value="3"/></label>
+                  <label>4<input type="radio" name="pain_staff_model" value="4"/></label>
+                  <label>5<input type="radio" name="pain_staff_model" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>Aladtec</option>
+                  <option>InTime</option>
+                  <option>Vector Solutions (TargetSolutions)</option>
+                  <option>eSchedule</option>
+                  <option>Telestaff (UKG)</option>
+                  <option>CrewSense</option>
+                  <option>First Due</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Budget &amp; justification</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_budget" value="1"/></label>
+                  <label>2<input type="radio" name="pain_budget" value="2"/></label>
+                  <label>3<input type="radio" name="pain_budget" value="3"/></label>
+                  <label>4<input type="radio" name="pain_budget" value="4"/></label>
+                  <label>5<input type="radio" name="pain_budget" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>First Due</option>
+                  <option>Tyler Technologies</option>
+                  <option>Power BI</option>
+                  <option>ArcGIS / Esri</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Accreditation (ISO, CFAI)</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_accred" value="1"/></label>
+                  <label>2<input type="radio" name="pain_accred" value="2"/></label>
+                  <label>3<input type="radio" name="pain_accred" value="3"/></label>
+                  <label>4<input type="radio" name="pain_accred" value="4"/></label>
+                  <label>5<input type="radio" name="pain_accred" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>First Due</option>
+                  <option>FireHouse Software</option>
+                  <option>Emergency Reporting</option>
+                  <option>Vector Solutions (TargetSolutions)</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Frequent caller analysis</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_freq_caller" value="1"/></label>
+                  <label>2<input type="radio" name="pain_freq_caller" value="2"/></label>
+                  <label>3<input type="radio" name="pain_freq_caller" value="3"/></label>
+                  <label>4<input type="radio" name="pain_freq_caller" value="4"/></label>
+                  <label>5<input type="radio" name="pain_freq_caller" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>ESO</option>
+                  <option>ImageTrend</option>
+                  <option>Pulsara</option>
+                  <option>HealthEMS</option>
+                  <option>Power BI</option>
+                  <option>ArcGIS / Esri</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+
+            <tr>
+              <td class="item-col">Personnel wellness, health &amp; exposure tracking</td>
+              <td class="pain-col">
+                <div class="pain-group">
+                  <label>1<input type="radio" name="pain_wellness" value="1"/></label>
+                  <label>2<input type="radio" name="pain_wellness" value="2"/></label>
+                  <label>3<input type="radio" name="pain_wellness" value="3"/></label>
+                  <label>4<input type="radio" name="pain_wellness" value="4"/></label>
+                  <label>5<input type="radio" name="pain_wellness" value="5"/></label>
+                </div>
+              </td>
+              <td class="tools-col">
+                <select class="tools-select">
+                  <option value=""></option>
+                  <option>Versaterm</option>
+                  <option>First Due</option>
+                  <option>ImageTrend</option>
+                  <option>ESO</option>
+                  <option>Vector Solutions (TargetSolutions)</option>
+                  <option>Operative IQ</option>
+                  <option>Emergency Reporting</option>
+                  <option>other</option>
+                </select>
+              </td>
+              <td class="wa-col"><input type="checkbox"/></td>
+              <td class="notes-col"><textarea class="notes-input"></textarea></td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div><!-- /.table-wrap -->
+    </div><!-- /.table-card -->
+
+    <!-- ══ Additional Comments ══════════════════════════════════════ -->
+    <div class="comments-card">
+      <h2>Any additional fire workflow or general comments not covered above</h2>
+      <textarea id="additionalComments" placeholder="Please share any workflows, pain points, or context that wasn't captured in the table above…"></textarea>
+    </div>
+
+    <!-- ══ Results output (shown on demand) ═════════════════════════ -->
+    <div class="results-card" id="results-card">
+      <h2>Results (copy &amp; paste if email does not open automatically)</h2>
+      <textarea id="results-output" readonly></textarea>
+    </div>
+
+  </div><!-- /.page-body -->
+
+  <!-- ══ Sticky Action Bar ════════════════════════════════════════ -->
+  <div class="action-bar">
+    <p class="prompt-text">
+      <strong>Ready to submit?</strong>&nbsp; Click <em>Submit by Email</em> to send your responses
+      to <a href="mailto:alex.menkes@versaterm.com">alex.menkes@versaterm.com</a>.
+      Use <em>Copy Results as Text</em> if you prefer to paste into an email manually.
+    </p>
+    <button class="btn btn-secondary" type="button" onclick="showResultsAsText()">Copy Results as Text</button>
+    <button class="btn btn-primary"   type="button" onclick="emailResults()">&#9993;&nbsp; Submit by Email</button>
+  </div>
+
+  <script>
+    /* ── Data collection ──────────────────────────────────────────── */
+    function collectResults() {
+      const responder  = document.getElementById('responderName').value.trim()  || 'Not provided';
+      const department = document.getElementById('departmentName').value.trim() || 'Not provided';
+      const additional = document.getElementById('additionalComments').value.trim();
+
       const lines = [];
-      const rows = document.querySelectorAll('tbody tr');
-      rows.forEach((row) => {
+      lines.push('VERSATERM FIRE METHODOLOGY ASSESSMENT');
+      lines.push('======================================');
+      lines.push('Responder:  ' + responder);
+      lines.push('Department: ' + department);
+      lines.push('');
+
+      document.querySelectorAll('tbody tr').forEach(function(row) {
         if (row.classList.contains('section-row')) {
-          lines.push('\n' + row.textContent.trim());
+          lines.push('');
+          lines.push(row.textContent.trim().toUpperCase());
+          lines.push('--------------------------------------------------');
           return;
         }
         if (row.classList.contains('subsection-row')) {
-          lines.push('  ' + row.textContent.trim());
+          lines.push('  [ ' + row.textContent.trim() + ' ]');
           return;
         }
         const itemCell = row.querySelector('td.item-col');
         if (!itemCell) return;
-        const itemName = itemCell.textContent.trim();
-        const selectedPain = row.querySelector('input[type="radio"]:checked');
-        const toolSelect = row.querySelector('select.tools-select');
-        const workaround = row.querySelector('td.workaround-col input[type="checkbox"]');
-        const notesInput = row.querySelector('textarea.notes-input');
-        const pain = selectedPain ? selectedPain.value : 'Not set';
-        const tool = toolSelect && toolSelect.value ? toolSelect.value : 'None selected';
-        const workaroundText = workaround && workaround.checked ? 'Yes' : 'No';
-        const notes = notesInput && notesInput.value.trim() ? notesInput.value.trim() : 'None';
-        lines.push('  - ' + itemName + ': Pain level ' + pain + '; Current tools used ' + tool + '; Workarounds required ' + workaroundText + '; Notes ' + notes);
+
+        const itemName      = itemCell.textContent.trim();
+        const selectedPain  = row.querySelector('input[type="radio"]:checked');
+        const toolSelect    = row.querySelector('select.tools-select');
+        const workaround    = row.querySelector('td.wa-col input[type="checkbox"]');
+        const notesInput    = row.querySelector('textarea.notes-input');
+
+        const pain          = selectedPain  ? selectedPain.value          : 'Not set';
+        const tool          = (toolSelect && toolSelect.value) ? toolSelect.value : 'None selected';
+        const workaroundTxt = (workaround  && workaround.checked)         ? 'Yes' : 'No';
+        const notes         = (notesInput  && notesInput.value.trim())    ? notesInput.value.trim() : 'None';
+
+        lines.push('  ' + itemName);
+        lines.push('    Pain: ' + pain + '  |  Tool: ' + tool + '  |  Workaround: ' + workaroundTxt);
+        if (notes !== 'None') { lines.push('    Notes: ' + notes); }
       });
-      return lines.join('\n').trim();
-    }
-    function showResultsAsText() {
-      const body = collectResults();
-      let area = document.getElementById('results-output');
-      if (!area) {
-        area = document.createElement('textarea');
-        area.id = 'results-output';
-        document.body.appendChild(area);
+
+      if (additional) {
+        lines.push('');
+        lines.push('ADDITIONAL COMMENTS');
+        lines.push('--------------------------------------------------');
+        lines.push(additional);
       }
-      area.value = body || 'No entries were recorded.';
+
+      return lines.join('\n');
     }
+
+    /* ── Show as text ─────────────────────────────────────────────── */
+    function showResultsAsText() {
+      const card = document.getElementById('results-card');
+      const area = document.getElementById('results-output');
+      area.value = collectResults();
+      card.style.display = 'block';
+      card.scrollIntoView({ behavior: 'smooth' });
+      area.select();
+      try { document.execCommand('copy'); } catch(e) {}
+    }
+
+    /* ── Email ────────────────────────────────────────────────────── */
     function emailResults() {
-      const body = collectResults();
-      const subject = 'Versaterm Fire Methodology Assessment Results';
-      const mailto = 'mailto:alex.menkes@versaterm.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body || 'No entries were recorded.');
-      window.location.href = mailto;
+      const body    = collectResults();
+      const subject = 'Versaterm Fire Methodology Assessment — ' +
+                      (document.getElementById('departmentName').value.trim() || 'Response');
+      window.location.href = 'mailto:alex.menkes@versaterm.com'
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body='    + encodeURIComponent(body);
     }
   </script>
+
 </body>
 </html>
